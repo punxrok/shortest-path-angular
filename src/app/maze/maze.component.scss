@@ -1,0 +1,37 @@
+.maze-wrapper {
+  display: flex;
+  flex-direction: row;
+  overflow: hidden;
+  border: 1px solid white;
+  flex-wrap: wrap;
+}
+
+.maze-cell {
+  flex-shrink: 0;
+  margin: 0.1em;
+  display: flex;
+  text-align: center;
+}
+
+.road {
+  background-color: lightgrey;
+}
+
+.start {
+  background-color: blueviolet;
+}
+
+.finish {
+  background-color: greenyellow;
+}
+
+.obstacle {
+  background-color: black;
+}
+
+.maze-cell > span {
+  width: 1.5em;
+  height: 1.5em;
+  margin: 0;
+  position: relative;
+}
