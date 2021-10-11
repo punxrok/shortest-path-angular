@@ -1,4 +1,6 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { MazeCellsPositioner } from './maze-cells-positioner';
+import { PathFinder } from './path-finder';
 
 @Component({
   selector: 'app-maze',
@@ -16,7 +18,8 @@ export class MazeComponent implements OnInit {
 
   public CellType = CellType;
   public matrix: Cell[][];
-  private matrixCellsPositioner = new MatrixCellsPositioner();
+  private matrixCellsPositioner = new MazeCellsPositioner();
+  private pathFinder: PathFinder;
   constructor() {
 
     this.matrix = new Array<Array<Cell>>();
@@ -26,6 +29,8 @@ export class MazeComponent implements OnInit {
         this.matrix[i].push(new Cell(CellType.Road, i, j));
       }
     }
+
+    this.pathFinder = new PathFinder(this.matrixCellsPositioner, this.matrix);
 
     console.log(this.matrix)
   }
@@ -39,7 +44,7 @@ export class MazeComponent implements OnInit {
   }
 
   public findPath() {
-    const start = this.matrixCellsPositioner.startCell
+    this.pathFinder.findPath();
   }
 
 }
@@ -63,44 +68,4 @@ export enum CellType {
   Finish
 }
 
-export class MatrixCellsPositioner {
-  private matrixItemsQueue = this.createMatrixItemsQueue();
-  private modifiedCells = new Map<CellType, Cell[]>();
 
-  get startCell(): Cell | undefined {
-    if (!this.modifiedCells.has(CellType.Start)) {
-      return undefined;
-    }
-    const c = <Cell[]>this.modifiedCells.get(CellType.Start);
-    return c[0];
-  }
-
-  private createMatrixItemsQueue() {
-    return new Array<CellType>(CellType.Obstacle, CellType.Finish, CellType.Start);
-  }
-
-  public set(cell: Cell) {
-    if (this.matrixItemsQueue.length > 1) {
-      cell.type = <CellType>this.matrixItemsQueue.pop();
-    }
-    else {
-      cell.type = <CellType>this.matrixItemsQueue[0];
-    }
-    const curr = this.modifiedCells.get(cell.type);
-
-    if (!!curr) {
-      curr.push(cell);
-    } else {
-      this.modifiedCells.set(cell.type, [cell]);
-    }
-  }
-
-  public reset() {
-    this.modifiedCells.forEach(e => {
-      e.forEach(c => c.type = CellType.Road);
-    });
-
-    this.modifiedCells.clear();
-    this.matrixItemsQueue = this.createMatrixItemsQueue();
-  }
-}
