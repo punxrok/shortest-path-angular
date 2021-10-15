@@ -1,4 +1,5 @@
-import { CellType, Cell } from './maze.component';
+import { CellType } from "./cell-type";
+import { Cell } from "./cell";
 
 
 export class MazeCellsPositioner {

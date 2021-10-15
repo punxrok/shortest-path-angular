@@ -1,5 +1,8 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { MazeCellsPositioner } from './maze-cells-positioner';
+import { CellFinder } from './cell-finder';
+import { Cell } from './cell';
+import { CellType } from './cell-type';
 import { PathFinder } from './path-finder';
 
 @Component({
@@ -10,17 +13,13 @@ import { PathFinder } from './path-finder';
 })
 export class MazeComponent implements OnInit {
 
-  // public maze: string[][] = new Array(25)
-  //   .fill('0')
-  //   .map(() =>
-  //     new Array(25).fill('0')
-  //   );
-
   public CellType = CellType;
   public matrix: Cell[][];
   private matrixCellsPositioner = new MazeCellsPositioner();
-  private pathFinder: PathFinder;
-  constructor() {
+  private cellFinder: CellFinder;
+  constructor(
+    private readonly pathFinder: PathFinder
+  ) {
 
     this.matrix = new Array<Array<Cell>>();
     for (let i = 0; i < 25; i++) {
@@ -30,7 +29,7 @@ export class MazeComponent implements OnInit {
       }
     }
 
-    this.pathFinder = new PathFinder(this.matrixCellsPositioner, this.matrix);
+    this.cellFinder = new CellFinder(this.matrixCellsPositioner, this.matrix);
 
     console.log(this.matrix)
   }
@@ -44,28 +43,11 @@ export class MazeComponent implements OnInit {
   }
 
   public findPath() {
-    this.pathFinder.findPath();
+    const finishCell = this.cellFinder.findFinishCell();
+    if (finishCell !== undefined)
+      this.pathFinder.drawPath(finishCell);
   }
 
-}
-
-export class Cell {
-
-  constructor(type: CellType, row: number, column: number) {
-    this.type = type;
-    this.position = { row: row, col: column };
-  }
-  public type: CellType;
-  public position: { row: number, col: number };
-  public previous?: Cell;
-
-}
-
-export enum CellType {
-  Road,
-  Obstacle,
-  Start,
-  Finish
 }
 
 

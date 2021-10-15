@@ -1,10 +1,21 @@
 <p>maze works!</p>
 
 <div class="maze-wrapper" *ngFor="let col of matrix; let i = index">
-  <div class="maze-cell color-grey" *ngFor="let row of col; let j = index"
-  [ngClass]="{'road': row.type === CellType.Road, 'obstacle' : row.type === CellType.Obstacle, 'start' : row.type === CellType.Start, 'finish' : row.type === CellType.Finish }"
-  (click)="onClick(row)"
+  <div
+    class="maze-cell color-grey"
+    *ngFor="let row of col; let j = index"
+    [ngClass]="{
+      road: row.type === CellType.Road,
+      obstacle: row.type === CellType.Obstacle,
+      start: row.type === CellType.Start,
+      finish: row.type === CellType.Finish,
+      'on-path': row.isOnThePath
+    }"
+    (click)="onClick(row)"
   >
     <span>{{ i + " ," + j }}</span>
   </div>
+</div>
+<div class="menu">
+  <button (click)="findPath()">Search</button>
 </div>
