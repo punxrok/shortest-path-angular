@@ -4,6 +4,7 @@
   overflow: hidden;
   border: 1px solid white;
   flex-wrap: wrap;
+  justify-content: center;
 }
 
 .maze-cell {
@@ -18,11 +19,11 @@
 }
 
 .start {
-  background-color: blueviolet;
+  background-color: rgb(60, 243, 84);
 }
 
 .finish {
-  background-color: greenyellow;
+  background-color: rgb(241, 92, 92);
 }
 
 .obstacle {
@@ -30,7 +31,7 @@
 }
 
 .on-path {
-  background-color: #1cf015;
+  background-color: #47e3f7;
 }
 
 .maze-cell > span {
@@ -39,3 +40,32 @@
   margin: 0;
   position: relative;
 }
+
+.menu {
+
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  .srchbtn {
+    border: none;
+    padding: 16px 42px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 18px;
+    margin: 4px 2px;
+    transition-duration: 0.4s;
+    cursor: pointer;
+    background-color: #555555;
+    color: white;
+    border: 2px solid #555555;
+    border-radius: 30px;
+    align-self: center;
+  }
+  .srchbtn:hover {
+    background-color: white;
+    color: black;
+  }
+}
+
+

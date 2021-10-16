@@ -1,4 +1,3 @@
-<p>maze works!</p>
 
 <div class="maze-wrapper" *ngFor="let col of matrix; let i = index">
   <div
@@ -13,9 +12,9 @@
     }"
     (click)="onClick(row)"
   >
-    <span>{{ i + " ," + j }}</span>
+    <span></span>
   </div>
 </div>
 <div class="menu">
-  <button (click)="findPath()">Search</button>
+  <button class="srchbtn" (click)="findPath()">SEARCH</button>
 </div>
