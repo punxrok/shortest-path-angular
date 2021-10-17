@@ -1,3 +1,5 @@
+@import url(https://fonts.googleapis.com/css?family=Raleway:600);
+
 .maze-wrapper {
   display: flex;
   flex-direction: row;
@@ -31,7 +33,7 @@
 }
 
 .on-path {
-  background-color: #47e3f7;
+  background-color: #2ddcf060;
 }
 
 .maze-cell > span {
@@ -42,7 +44,7 @@
 }
 
 .menu {
-
+  margin: 8px 0px 0px 0px;
   display: flex;
   flex-direction: column;
   width: 100%;
@@ -64,8 +66,48 @@
   }
   .srchbtn:hover {
     background-color: white;
-    color: black;
+    color: #555555;
   }
 }
+
+//TITLE DESIGN
+h1 {
+  margin: 10px 0px 10px 0px;
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  justify-content: center;
+	color: #555555;
+	font-family: 'Raleway', sans-serif;
+	font-size: 52px;
+	font-weight: 600;
+	span {
+    padding-left: 0.1em;
+    padding-right: 0.1em;
+		display: inline-block;
+		opacity: 0;
+		transform: translateY(20px) rotate(90deg);
+		transform-origin: left;
+		animation: in 0.5s forwards;
+		@for $i from 1 to 8 {
+  		&:nth-child(#{$i}) { 
+				animation-delay: $i * 0.1s;
+			}
+		}
+	}
+}
+//TITLE ANIMATION
+@keyframes in {
+  0% { 
+		opacity: 0;
+		transform: translateY(50px) rotate(90deg);
+	}
+	100% { 
+		opacity: 1;
+		transform: translateY(0) rotate(0);
+	}
+}
+
+
 
 
